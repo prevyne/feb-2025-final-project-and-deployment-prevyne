@@ -1,4 +1,39 @@
+// Make slider functions globally available for onclick handlers
+let slideIndex = 1; // Global for slider state
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+  let i;
+  // Corrected selector to match CSS/HTML
+  let slides = document.getElementsByClassName("image-slide");
+  if (!slides || slides.length === 0) return; // Exit if no slides found
+
+  // Wrap around logic
+  if (n > slides.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = slides.length }
+
+  // Hide all slides first
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+
+  // Display the current slide and add fade class (optional, depends on CSS)
+  slides[slideIndex - 1].style.display = "block";
+  // Optional: remove/re-add fade class if needed for animation replay
+  // slides[slideIndex-1].classList.add('fade');
+}
+
+
+// Wait for the DOM to be fully loaded before running scripts
 document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Initialize Image Slider (only if on a page with the slider) ---
+    if (document.querySelector('.image-slider-container')) {
+        showSlides(slideIndex); // Display the first slide
+    }
 
     // --- Mobile Navigation Toggle ---
     const navToggle = document.querySelector('.nav-toggle');
@@ -7,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && mainNav) {
         navToggle.addEventListener('click', () => {
             mainNav.classList.toggle('active');
-            // Optional: Add class to button for 'X' state styling
+            // Add class to button for 'X' state styling if needed (matches CSS)
             navToggle.classList.toggle('is-active');
         });
     }
@@ -18,70 +53,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (contactForm && formMessage) {
         contactForm.addEventListener('submit', (event) => {
-            // Prevent the default form submission behavior
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission
 
-            // Clear previous messages
-            formMessage.textContent = '';
+            formMessage.textContent = ''; // Clear previous messages
             formMessage.className = 'form-message'; // Reset classes
 
-            // Get form fields
             const nameInput = document.getElementById('name');
             const emailInput = document.getElementById('email');
             const messageInput = document.getElementById('message');
 
-            // Basic Validation: Check if fields are empty
             let isValid = true;
             let errors = [];
 
+            // Reset border styles
+            nameInput.style.borderColor = '#ccc';
+            emailInput.style.borderColor = '#ccc';
+            messageInput.style.borderColor = '#ccc';
+
+            // Validation checks
             if (nameInput.value.trim() === '') {
                 isValid = false;
                 errors.push('Name is required.');
-                nameInput.style.borderColor = 'red'; // Highlight error field
-            } else {
-                nameInput.style.borderColor = '#ccc'; // Reset border
+                nameInput.style.borderColor = '#e74c3c'; // Use a consistent error color
             }
 
             if (emailInput.value.trim() === '') {
                 isValid = false;
                 errors.push('Email is required.');
-                 emailInput.style.borderColor = 'red';
-            } else if (!/\S+@\S+\.\S+/.test(emailInput.value)) { // Simple email format check
-                 isValid = false;
-                 errors.push('Please enter a valid email address.');
-                 emailInput.style.borderColor = 'red';
-            } else {
-                 emailInput.style.borderColor = '#ccc';
+                emailInput.style.borderColor = '#e74c3c';
+            } else if (!/\S+@\S+\.\S+/.test(emailInput.value)) { // Basic email format check
+                isValid = false;
+                errors.push('Please enter a valid email address.');
+                emailInput.style.borderColor = '#e74c3c';
             }
-
 
             if (messageInput.value.trim() === '') {
                 isValid = false;
                 errors.push('Message is required.');
-                 messageInput.style.borderColor = 'red';
-            } else {
-                messageInput.style.borderColor = '#ccc';
+                messageInput.style.borderColor = '#e74c3c';
             }
 
-            // Display messages
+            // Display feedback
             if (isValid) {
-                // Simulate successful submission (in a real app, you'd send data here)
-                formMessage.textContent = 'Thank you for your message! (This is a demo - no email was sent.)';
+                formMessage.textContent = 'Thank you for your message! (Demo - no email sent)';
                 formMessage.classList.add('success');
-
-                // Optionally clear the form
-                contactForm.reset();
-                // Reset border colors on success too
-                nameInput.style.borderColor = '#ccc';
-                emailInput.style.borderColor = '#ccc';
-                messageInput.style.borderColor = '#ccc';
-
+                contactForm.reset(); // Clear form on success
             } else {
-                // Display error messages
-                formMessage.textContent = 'Please fix the following errors: ' + errors.join(' ');
+                formMessage.textContent = 'Please correct the errors: ' + errors.join(' ');
                 formMessage.classList.add('error');
             }
         });
     }
-
-});
+}); // End of DOMContentLoaded listener
