@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Blog Post - My Awesome Blog</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">My Awesome Blog</a>
+             <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article class="full-post">
+            <h1>My First Blog Post</h1>
+            <p class="post-meta">Published on May 13, 2025 by Okech Odhiambo</p>
+
+            <img src="https://via.placeholder.com/800x400" alt="Placeholder blog post image" class="post-image">
+
+            <p>This marks the beginning of my journey into blogging and sharing my experiences with web development. Creating this very website was a fantastic learning opportunity, reinforcing the core concepts of HTML, CSS, and JavaScript.</p>
+
+            <h2>The Building Blocks: HTML</h2>
+            <p>Semantic HTML was key. Using tags like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;footer&gt;</code> not only helps structure the content logically but also improves accessibility and SEO.</p>
+
+            <h2>Making it Pretty: CSS</h2>
+            <p>CSS brought the structure to life. Flexbox was used for layout, particularly in the header for aligning the logo and navigation. Media queries ensure the site adapts to different screen sizes, making it responsive. Basic styling like colors, fonts, padding, and margins create a pleasant visual experience.</p>
+            <pre><code class="language-css">
+/* Basic responsive navigation toggle */
+@media (max-width: 768px) {
+  .main-nav {
+    /* Styles to hide/show on mobile */
+  }
+  .nav-toggle {
+    display: block; /* Show hamburger */
+  }
+}
+            </code></pre>
+
+            <h2>Adding Interactivity: JavaScript</h2>
+            <p>JavaScript adds the dynamic elements. A simple script handles the mobile navigation toggle (the "hamburger" menu) and provides basic client-side validation for the contact form, preventing submission if fields are empty.</p>
+
+            <h2>Deployment</h2>
+            <p>Finally, deploying the site using a static hosting service like GitHub Pages, Netlify, or Vercel makes it accessible to the world. This process is surprisingly straightforward for static sites.</p>
+
+            <p>It's been a rewarding process, and I look forward to adding more content and features to this blog!</p>
+
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy;okech 2025 My Awesome Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
